@@ -9,7 +9,8 @@ Installation
 Configuration
 -------------
 
-2. Add `turbolinks.middleware.TurbolinksMiddleware` anywhere to your
+2. Add `turbolinks.middleware.TurbolinksMiddleware` before 
+  `django.contrib.sessions.middleware.SessionMiddleware` to your
   `MIDDLEWARE_CLASSES` setting.
 3. Add `turbolinks` to your `INSTALLED_APPS` setting.
 4. Run `./manage.py collectstatic`
