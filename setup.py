@@ -14,7 +14,7 @@ if sys.argv[-1] == "publish":
 
 setup(
     name='django-turbolinks',
-    version='0.0.1',
+    version='0.0.2',
     description='Drop-in turbolinks implementation for Django.',
     long_description=open('README.md').read(),
     author='Dmitry Gladkov',
