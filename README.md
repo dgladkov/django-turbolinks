@@ -9,7 +9,7 @@ Installation
 Configuration
 -------------
 
-2. Add `turbolinks.middleware.TurbolinksMiddleware` before 
+2. Add `turbolinks.middleware.TurbolinksMiddleware` after
   `django.contrib.sessions.middleware.SessionMiddleware` to your
   `MIDDLEWARE_CLASSES` setting.
 3. Add `turbolinks` to your `INSTALLED_APPS` setting.
