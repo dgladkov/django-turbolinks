@@ -1,34 +1,17 @@
 # coding: utf-8
-"""
-django_turbolinks
-~~~~~~~~~~~~~~~~
-some of this code copy from https://github.com/lepture/flask-turbolinks
-thanks for Hsiaoming Yang <me@lepture.com> and rei <http://chloerei.com/>
-"""
-
 try:
     from urlparse import urlparse
 except ImportError:
-    # python 3
     from urllib.parse import urlparse
+from django.http import HttpResponseForbidden
 
-    __version__ = '0.0.1'
 
 def same_origin(current_uri, redirect_uri):
-    parsed_uri = urlparse(current_uri)
-    if not parsed_uri.scheme:
+    a = urlparse(current_uri)
+    if not a.scheme:
         return True
-    parsed_redirect = urlparse(redirect_uri)
-
-    if parsed_uri.scheme != parsed_redirect.scheme:
-        return False
-
-    if parsed_uri.hostname != parsed_redirect.hostname:
-        return False
-
-    if parsed_uri.port != parsed_redirect.port:
-        return False
-    return True
+    b = urlparse(redirect_uri)
+    return (a.scheme, a.hostname, a.port) == (b.scheme, b.hostname, b.port)
 
 
 class TurbolinksMiddleware(object):
@@ -38,7 +21,7 @@ class TurbolinksMiddleware(object):
         if referrer:
             # overwrite referrer
             request.META['HTTP_REFERER'] = referrer
-        return request
+        return
 
     def process_response(self, request, response):
         referrer = request.META.get('HTTP_X_XHR_REFERER')
@@ -55,12 +38,9 @@ class TurbolinksMiddleware(object):
             loc = response['Location']
             request.session['_turbolinks_redirect_to'] = loc
 
-            # cross domain redirect
+            # cross domain blocker
             if referrer and not same_origin(loc, referrer):
-                response.status_code = 200
-                response.content = (
-                    '<body><script>location.href="%s"</script></body>'
-                ) % loc
+                return HttpResponseForbidden()
         else:
             if request.session.get('_turbolinks_redirect_to'):
                 loc = request.session.pop('_turbolinks_redirect_to')
