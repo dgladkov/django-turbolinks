@@ -1,6 +1,8 @@
 django-turbolinks [![Build Status](https://travis-ci.org/dgladkov/django-turbolinks.svg?branch=master)](https://travis-ci.org/dgladkov/django-turbolinks)
 ===========
 
+Drop-in turbolinks implementation for Django
+
 Installation
 ------------
 
