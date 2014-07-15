@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import unicode_literals
 import os
 import django
 from django.conf import settings
@@ -62,17 +63,14 @@ from django.test import TestCase
 
 class MainTestCase(TestCase):
 
-    def setUpClass(cls):
-
-
     def test_home(self):
         response = self.client.get('/', HTTP_X_XHR_REFERER='/page/')
-        self.assertEquals(response.content, '/page/')
-        self.assertEquals(response.cookies.get('request_method').value, 'GET')
+        self.assertEqual(response.content, b'/page/')
+        self.assertEqual(response.cookies.get('request_method').value, 'GET')
 
     def test_redirect(self):
         response = self.client.get('/redirect/', HTTP_X_XHR_REFERER='/page/')
-        self.assertEquals(
+        self.assertEqual(
             self.client.session.get('_turbolinks_redirect_to'),
             '/page/',
         )
@@ -89,31 +87,31 @@ class MainTestCase(TestCase):
 
     def test_x_redirect(self):
         response = self.client.get('/x-redirect/')
-        self.assertEquals(response.status_code, 302)
+        self.assertEqual(response.status_code, 302)
 
         response = self.client.get('/x-redirect/', HTTP_X_XHR_REFERER='/page/')
-        self.assertEquals(response.status_code, 403)
+        self.assertEqual(response.status_code, 403)
 
         # origin and redirect are exactly the same
         response = self.client.get(
             '/x-redirect/',
             HTTP_X_XHR_REFERER='http://example.com/'
         )
-        self.assertEquals(response.status_code, 302)
+        self.assertEqual(response.status_code, 302)
 
         # port differs
         response = self.client.get(
             '/x-redirect/',
             HTTP_X_XHR_REFERER='http://example.com:8000/'
         )
-        self.assertEquals(response.status_code, 403)
+        self.assertEqual(response.status_code, 403)
 
         # same domain, different URI
         response = self.client.get(
             '/x-redirect/',
             HTTP_X_XHR_REFERER='http://example.com/example/'
         )
-        self.assertEquals(response.status_code, 302)
+        self.assertEqual(response.status_code, 302)
 
 
 def main():
