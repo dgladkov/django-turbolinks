@@ -1,11 +1,11 @@
 #!/usr/bin/env python
+from __future__ import unicode_literals
 import os
-import sys
 from setuptools import Command, setup
 import turbolinks
 
 
-class test(Command):
+class Test(Command):
     description = 'Custom test runner'
     user_options = []
 
@@ -19,10 +19,6 @@ class test(Command):
         from run_tests import main
         main()
 
-
-if sys.argv[-1] == "publish":
-    os.system("python setup.py sdist upload")
-    sys.exit()
 
 setup(
     name='django-turbolinks',
@@ -52,5 +48,5 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
     test_suite='run_tests',
-    cmdclass={'test': test},
+    cmdclass={'test': Test},
 )
