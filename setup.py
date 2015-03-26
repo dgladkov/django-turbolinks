@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from __future__ import unicode_literals
 import os
-from setuptools import Command, setup
+from setuptools import Command, setup, find_packages
 import turbolinks
 
 
@@ -30,7 +30,7 @@ setup(
     description='Drop-in turbolinks implementation for Django',
     long_description=open(
         os.path.join(os.path.dirname(__file__), 'README.md')).read(),
-    packages=['turbolinks'],
+    packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
     install_requires=[
