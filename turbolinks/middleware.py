@@ -1,10 +1,7 @@
 # coding: utf-8
 from __future__ import unicode_literals
-try:
-    from urlparse import urlparse
-except ImportError:
-    from urllib.parse import urlparse
 from django.http import HttpResponseForbidden
+from django.utils.six.moves.urllib.parse import urlparse
 
 
 def same_origin(current_uri, redirect_uri):

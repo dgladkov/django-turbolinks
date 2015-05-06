@@ -1,12 +1,19 @@
 #!/usr/bin/env python
 from __future__ import unicode_literals
-import os
+
+import ast
+import re
 from setuptools import Command, setup, find_packages
-import turbolinks
+
+
+_version_re = re.compile(r'__version__\s+=\s+(.*)')
+
+with open('turbolinks/__init__.py', 'rb') as f:
+    version = str(ast.literal_eval(_version_re.search(
+        f.read().decode('utf-8')).group(1)))
 
 
 class Test(Command):
-    description = 'Custom test runner'
     user_options = []
 
     def initialize_options(self):
@@ -16,20 +23,19 @@ class Test(Command):
         pass
 
     def run(self):
-        from run_tests import main
+        from test_project import main
         main()
 
 
 setup(
     name='django-turbolinks',
-    version=turbolinks.__version__,
+    version=version,
     url='https://github.com/dgladkov/django-turbolinks',
     license='MIT',
     author='Dmitry Gladkov',
     author_email='dmitry.gladkov@gmail.com',
     description='Drop-in turbolinks implementation for Django',
-    long_description=open(
-        os.path.join(os.path.dirname(__file__), 'README.md')).read(),
+    long_description=open('README.md').read(),
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
@@ -47,6 +53,5 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
-    test_suite='run_tests',
     cmdclass={'test': Test},
 )

@@ -1,17 +1,4 @@
 language: python
-env:
-  - TOX_ENV=py26
-  - TOX_ENV=py27
-  - TOX_ENV=pypy
-  - TOX_ENV=py32
-  - TOX_ENV=py33
-  - TOX_ENV=py34
-  - TOX_ENV=py26-master
-  - TOX_ENV=py27-master
-  - TOX_ENV=pypy-master
-  - TOX_ENV=py32-master
-  - TOX_ENV=py33-master
-  - TOX_ENV=py34-master
 install:
   - pip install tox
 script:
