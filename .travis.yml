@@ -1,5 +1,22 @@
+sudo: false
 language: python
+
+python:
+  - "2.6"
+  - "2.7"
+  - "pypy"
+  - "3.3"
+  - "3.4"
+
+env:
+  - REQUIREMENTS=django-16
+  - REQUIREMENTS=django-17
+  - REQUIREMENTS=django-18
+  - REQUIREMENTS=django-master
+
 install:
   - pip install tox
+
 script:
-  - tox
+  - tox -e \
+    $(echo py$TRAVIS_PYTHON_VERSION | tr -d . | sed -e 's/pypypy/pypy/')-$REQUIREMENTS
