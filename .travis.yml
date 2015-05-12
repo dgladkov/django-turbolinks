@@ -13,6 +13,14 @@ env:
   - REQUIREMENTS=django-17
   - REQUIREMENTS=django-18
   - REQUIREMENTS=django-master
+matrix:
+  exclude:
+    # Django >= 1.7 does not support python 2.6
+    - python: "2.6"
+      env:
+        - REQUIREMENTS=django-17
+        - REQUIREMENTS=django-18
+        - REQUIREMENTS=django-master
 
 install:
   - pip install tox
