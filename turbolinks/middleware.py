@@ -1,5 +1,6 @@
 # coding: utf-8
 from __future__ import unicode_literals
+from django.utils.deprecation import MiddlewareMixin
 from django.http import HttpResponseForbidden
 from django.utils.six.moves.urllib.parse import urlparse
 
@@ -12,7 +13,7 @@ def same_origin(current_uri, redirect_uri):
     return (a.scheme, a.hostname, a.port) == (b.scheme, b.hostname, b.port)
 
 
-class TurbolinksMiddleware(object):
+class TurbolinksMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         referrer = request.META.get('HTTP_X_XHR_REFERER')
