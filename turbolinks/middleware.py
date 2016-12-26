@@ -1,6 +1,9 @@
 # coding: utf-8
 from __future__ import unicode_literals
-from django.utils.deprecation import MiddlewareMixin
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    MiddlewareMixin = object
 from django.http import HttpResponseForbidden
 from django.utils.six.moves.urllib.parse import urlparse
 
