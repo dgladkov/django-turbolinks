@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 from __future__ import unicode_literals
 
-try:
-    import django
-except ImportError:
-    django = None
+import django
 from django.conf import settings
 from django.conf.urls import url
 from django.http import HttpResponse, HttpResponseRedirect
