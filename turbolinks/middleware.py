@@ -8,8 +8,10 @@ from django.http import HttpResponseForbidden
 try:
     from django.utils.six.moves.urllib.parse import urlparse
 except ImportError:
-    from django.utils.http import urlparse as dj_urlparser
-    urlparse = dj_urlparser.urlparse
+    try:
+        from urlparse import urlparse
+    except ImportError:
+        from urllib.parse import urlparse
 
 
 def same_origin(current_uri, redirect_uri):
