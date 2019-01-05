@@ -5,7 +5,11 @@ try:
 except ImportError:
     MiddlewareMixin = object
 from django.http import HttpResponseForbidden
-from django.utils.six.moves.urllib.parse import urlparse
+try:
+    from django.utils.six.moves.urllib.parse import urlparse
+except ImportError:
+    from django.utils.http import urlparse as dj_urlparser
+    urlparse = dj_urlparser.urlparse
 
 
 def same_origin(current_uri, redirect_uri):
