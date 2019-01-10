@@ -40,7 +40,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'Django>=1.6',
+        'Django>=1.5',
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
