@@ -44,8 +44,10 @@ class TurbolinksMiddleware(MiddlewareMixin):
         if response.has_header('Location'):
             # this is a redirect response
             loc = response['Location']
-            if getattr(request, 'session'):
+            try:
                 request.session['_turbolinks_redirect_to'] = loc
+            except AttributeError:
+                pass
 
             # cross domain blocker
             if referrer and not same_origin(loc, referrer):
