@@ -1,16 +1,9 @@
 #!/usr/bin/env python
 from __future__ import unicode_literals
 
-import ast
-import re
 from setuptools import Command, setup, find_packages
 
-
-_version_re = re.compile(r'__version__\s+=\s+(.*)')
-
-with open('turbolinks/__init__.py', 'rb') as f:
-    version = str(ast.literal_eval(_version_re.search(
-        f.read().decode('utf-8')).group(1)))
+from django_turbolinks import __version__ as version
 
 
 class Test(Command):
@@ -28,19 +21,19 @@ class Test(Command):
 
 
 setup(
-    name='django-turbolinks',
+    name='django-turbolinks-dj2',
     version=version,
-    url='https://github.com/dgladkov/django-turbolinks',
+    url='https://github.com/dbarbeau/django-turbolinks-dj2',
     license='MIT',
     author='Dmitry Gladkov',
-    author_email='dmitry.gladkov@gmail.com',
+    author_email='barbeau.daniel@outlook.com',
     description='Drop-in turbolinks implementation for Django',
     long_description=open('README.rst').read(),
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'Django>=1.6',
+        'Django>=2.0',
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
